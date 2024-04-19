@@ -1,0 +1,35 @@
+[project]
+name = "llmaudit"
+version = "0.1.2"
+authors = [
+  { name="PromptArmor", email="founders@promptarmor.com" },
+]
+description = "A CLI tool to find LLM usage accross your repos"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License", #TODO: Figure this out
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+  "jinja2",
+  "codeowners",
+  "GitPython",
+  "PyGithub"
+]
+
+[project.scripts]
+llmaudit = "llmaudit.cli:main_cli"
+
+
+
+[tool.setuptools.package-data]
+llmaudit = ["*.html", "*.png"]
+
+
+[project.urls]
+"Company Page" = "https://promptarmor.com/"
+Homepage = "https://github.com/pypa/sampleproject"
+Issues = "https://github.com/pypa/sampleproject/issues"

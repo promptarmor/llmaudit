@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptArmor Gen AI Usage Report</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="http://branding.promptarmor.com/static/logo.png">
+    <style>
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            color: #333; 
+            background-color: #f4f4f4; 
+            margin: 0; 
+            padding: 20px;
+        }
+        .header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+        }
+        .header h1 {
+            color: #2a2a2a;
+            font-weight: 700;
+        }
+        .header .date {
+            color: #757575;
+        }
+        .statistics { 
+            display: flex; 
+            justify-content: space-around;
+            align-items: flex-start;
+            background: #f4f4f4; 
+            /* box-shadow: 0 2px 4px rgba(0,0,0,0.1);  */
+            /* border-radius: 8px;  */
+            /* padding: 20px;  */
+            margin-bottom: 20px; 
+            flex-wrap: wrap;
+        }
+        .section { 
+            flex: 1;
+            min-width: 150px;
+            margin: 10px; 
+            text-align: center; 
+        }
+        .section h2 {
+            color: #1a1a1a;
+            text-align: left;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .repo-stats-header {
+            font-size: 1.5em;
+            font-weight: bold;
+            /* margin-bottom: 20px; */
+            margin: 10px; 
+        }
+        .repo-stats { 
+            display: flex; 
+            flex-wrap: wrap;
+            justify-content: space-between; /* Adjusted for consistent spacing */
+            align-items: flex-start;
+            background: #f4f4f4; 
+            /* box-shadow: 0 2px 4px rgba(0,0,0,0.1);  */
+            border-radius: 0px; 
+            padding: 10px; 
+            margin-bottom: 20px; 
+        }
+        .repo-section { 
+            flex: 0 0 calc(50% - 20px); /* Adjusted to prevent boxes from shrinking */
+            box-sizing: border-box;
+            border: 1px solid #eaeaea; 
+            border-radius: 8px; 
+            padding: 15px; 
+            background: #fff;
+            margin-bottom: 20px; /* Adjusted for consistent vertical spacing */
+            margin-right: 20px; /* Adjusted for consistent horizontal spacing */
+        }
+        .repo-section:nth-child(2n) {
+            margin-right: 0; /* Removes margin from every second element */
+        }
+        ul {
+            padding-left: 20px;
+            list-style-type: none; /* Removes bullet points if desired */
+        }
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <img src="http://branding.promptarmor.com/static/logo.png" alt="PromptArmor Logo" style="float:left; margin-right:10px; height:3em;">
+            <h1>PromptArmor Gen AI Usage Report</h1>
+        </div>
+        <p class="date" id="reportDate"></p>
+    </div>
+<div class="statistics">
+    <div class="section">
+        <h2>Total # Entrypoints</h2>
+        <div style="padding: 20px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-radius: 8px; min-height: 120px; justify-content: center;">
+            <p style="font-size: 80px; margin: 0; line-height: 120px; font-weight: bold;">{{ total_usages }}</p>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Entrypoints by LLM Provider</h2>
+        <div style="padding: 20px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-radius: 8px; min-height: 120px;">
+            {% for library, count in total_usage_by_library.items() %}
+            <p>{{ library }}: {{ count }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="section">
+        <h2>Top Owners</h2>
+        <div style="padding: 20px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-radius: 8px; min-height: 120px;">
+            {% for owner, count in top_owners %}
+            <p>{{ owner }}: {{ count }} entrypoints</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+    <div class="repo-stats-header">
+        Stats by Repo
+    </div>
+    <div class="repo-stats">
+        {% for repo_name, stats in repo_stats.items() %}
+        <div class="repo-section">
+            <h3>Repo: {{ repo_name }}</h3>
+            <p><strong>Total Entrypoints:</strong> {{ stats.total_usages }}</p>
+            <p><strong>Libraries:</strong> {{ stats.library_counts.keys()|join(', ') }}</p>
+            <p><strong>Top Owners:</strong></p>
+            <ul>
+                <!-- <li><strong>Top Owners:</strong></li> -->
+                {% for owner, count in stats.owner_counts.items() %}
+                <li>USERNAME, @{{ owner }}: {{ count }} entrypoints</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+    <script>
+        // Example script to set the current date
+        document.getElementById('reportDate').textContent = `Report Date: ${new Date().toLocaleDateString()}`;
+    </script>
+        <div style="text-align: center; margin-top: 20px;">
+            <p>For more information, visit <a href="https://promptarmor.com" target="_blank">PromptArmor</a> or reach out to founders@promptarmor.com</p>
+        </div>
+</body>
+</html>
