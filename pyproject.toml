@@ -1,6 +1,6 @@
 [project]
 name = "llmaudit"
-version = "0.1.2"
+version = "0.1.3"
 authors = [
   { name="PromptArmor", email="founders@promptarmor.com" },
 ]
@@ -31,5 +31,5 @@ llmaudit = ["*.html", "*.png"]
 
 [project.urls]
 "Company Page" = "https://promptarmor.com/"
-Homepage = "https://github.com/pypa/sampleproject"
-Issues = "https://github.com/pypa/sampleproject/issues"
+Homepage = "https://github.com/promptarmor/llmaudit"
+Issues = "https://github.com/promptarmor/llmaudit/issues"

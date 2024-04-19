@@ -20,7 +20,7 @@ LLM Audit can be used in two modes: scanning GitHub repositories or scanning loc
 
 ### Scanning GitHub Repositories
 
-To scan GitHub repositories, use the `github` command followed by the repositories you wish to scan. You can specify additional options such as a temporary directory for cloning, whether to keep the cloned repos, and a timeout for cloning.
+To scan GitHub repositories, first set the `GITHUB_TOKEN` environment variable to your github token, then use the `github` command followed by the repositories you wish to scan(not specifying a repo will scan all repos the token has access to). You can specify additional options such as a temporary directory for cloning, whether to keep the cloned repos, and a timeout for cloning.
 
 
 `llmaudit github [--repos <repo1> <repo2>] [--temp-dir <dir>] [--keep] [--timeout <seconds>]`
@@ -47,6 +47,8 @@ To scan local directories, use the `local` command followed by the paths to the 
 After scanning, LLM Audit generates an HTML report detailing the usage of LLMs across the scanned repositories or directories. The report includes total usage counts, usage by LLM provider, top owners, and statistics by repository.
 
 The report is saved in the `results` directory with a filename that includes the current date, e.g., `llm_usage_report_DD-MM-YYYY.html`.
+
+It also generates a CSV with all the data so that you can easily run any additional, granular analysis.
 
 ## Security and Privacy
 
